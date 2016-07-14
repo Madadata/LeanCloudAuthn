@@ -12,4 +12,4 @@ jerseyClient:
   gzipEnabledForRequests: true
   chunkedEncodingEnabled: true
 
-authCachingPolicy: maximumSize=10000, expireAfterAccess=10m
+authCachingPolicy: maximumSize=10000, expireAfterWrite=10m
