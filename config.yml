@@ -1,0 +1,12 @@
+leancloud:
+  appId: ${LC_APP_ID}
+  appKey: ${LC_APP_KEY}
+  authUrl: "https://api.leancloud.cn/1.1/users"
+
+jerseyClient:
+  minThreads: 1
+  maxThreads: 128
+  workQueueSize: 8
+  gzipEnabled: true
+  gzipEnabledForRequests: true
+  chunkedEncodingEnabled: true
