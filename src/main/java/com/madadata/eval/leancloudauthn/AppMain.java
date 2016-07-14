@@ -1,6 +1,7 @@
 package com.madadata.eval.leancloudauthn;
 
 import com.madadata.eval.leancloudauthn.config.AppConfig;
+import com.madadata.eval.leancloudauthn.health.LeancloudHealthCheck;
 import com.madadata.eval.leancloudauthn.resource.LeancloudAuthenticationService;
 import io.dropwizard.Application;
 import io.dropwizard.client.JerseyClientBuilder;
@@ -32,7 +33,7 @@ public class AppMain extends Application<AppConfig> {
 
     @Override
     public String getName() {
-        return "Leancloud Authn";
+        return "Leancloud Authentication";
     }
 
     @Override
@@ -40,6 +41,7 @@ public class AppMain extends Application<AppConfig> {
         final Client client = new JerseyClientBuilder(environment)
                 .using(appConfig.getJerseyClientConfiguration())
                 .build(getName());
+        environment.healthChecks().register("leancloud", new LeancloudHealthCheck(client, appConfig.getLeancloud()));
         environment.jersey().register(new LeancloudAuthenticationService(client, appConfig.getLeancloud()));
     }
 
