@@ -4,6 +4,7 @@ import com.madadata.eval.leancloudauthn.api.UserInfo;
 import com.madadata.eval.leancloudauthn.config.LeancloudConfig;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -28,6 +29,14 @@ public class LeancloudAuthenticationService {
     public LeancloudAuthenticationService(Client client, LeancloudConfig leancloudConfig) {
         this.client = requireNonNull(client, "client");
         this.leancloudConfig = requireNonNull(leancloudConfig, "leancloud config");
+    }
+
+    @PermitAll
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/secret")
+    public String protectedResource() {
+        return "this is a secret";
     }
 
     /**

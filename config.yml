@@ -1,7 +1,8 @@
 leancloud:
   appId: ${LC_APP_ID}
   appKey: ${LC_APP_KEY}
-  baseUrl: "https://api.leancloud.cn/1.1"
+  baseUrl: https://api.leancloud.cn/1.1
+
 
 jerseyClient:
   minThreads: 1
@@ -10,3 +11,5 @@ jerseyClient:
   gzipEnabled: true
   gzipEnabledForRequests: true
   chunkedEncodingEnabled: true
+
+authCachingPolicy: maximumSize=10000, expireAfterAccess=10m
