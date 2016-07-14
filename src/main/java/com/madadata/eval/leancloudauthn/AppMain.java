@@ -3,7 +3,7 @@ package com.madadata.eval.leancloudauthn;
 import com.google.common.cache.CacheBuilderSpec;
 import com.madadata.eval.leancloudauthn.api.AppUser;
 import com.madadata.eval.leancloudauthn.auth.LeancloudAuthenticator;
-import com.madadata.eval.leancloudauthn.auth.LeancloudAuthorizor;
+import com.madadata.eval.leancloudauthn.auth.LeancloudAuthorizer;
 import com.madadata.eval.leancloudauthn.config.AppConfig;
 import com.madadata.eval.leancloudauthn.health.LeancloudHealthCheck;
 import com.madadata.eval.leancloudauthn.resource.LeancloudAuthenticationService;
@@ -41,7 +41,7 @@ public class AppMain extends Application<AppConfig> {
 
     @Override
     public String getName() {
-        return "Leancloud Authentication";
+        return "LeancloudAuthentication";
     }
 
     @Override
@@ -55,7 +55,7 @@ public class AppMain extends Application<AppConfig> {
                                 environment.metrics(),
                                 new LeancloudAuthenticator(client, appConfig.getLeancloud()),
                                 CacheBuilderSpec.parse(appConfig.getAuthCachingPolicy())))
-                        .setAuthorizer(new LeancloudAuthorizor())
+                        .setAuthorizer(new LeancloudAuthorizer(client, appConfig.getLeancloud()))
                         .setRealm("SUPER SECRET STUFF")
                         .buildAuthFilter()));
         environment.jersey().register(RolesAllowedDynamicFeature.class);

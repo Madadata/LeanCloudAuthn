@@ -14,6 +14,10 @@ public class AppUser implements Principal {
         this.userInfo = Objects.requireNonNull(userInfo, "user info");
     }
 
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
     @Override
     public String getName() {
         return userInfo.getObjectId();

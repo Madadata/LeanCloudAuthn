@@ -2,6 +2,7 @@ package com.madadata.eval.leancloudauthn.api;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
@@ -78,5 +79,19 @@ public class UserInfo {
     @JsonProperty
     public boolean isMobilePhoneVerified() {
         return mobilePhoneVerified;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("objectId", objectId)
+                .add("phone", phone)
+                .add("username", username)
+                .add("sessionToken", sessionToken)
+                .add("updatedAt", updatedAt)
+                .add("createdAt", createdAt)
+                .add("emailVerified", emailVerified)
+                .add("mobilePhoneVerified", mobilePhoneVerified)
+                .toString();
     }
 }

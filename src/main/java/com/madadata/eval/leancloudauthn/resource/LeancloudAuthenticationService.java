@@ -4,7 +4,7 @@ import com.madadata.eval.leancloudauthn.api.UserInfo;
 import com.madadata.eval.leancloudauthn.config.LeancloudConfig;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -31,7 +31,7 @@ public class LeancloudAuthenticationService {
         this.leancloudConfig = requireNonNull(leancloudConfig, "leancloud config");
     }
 
-    @PermitAll
+    @RolesAllowed(value = {"Secret:Read"})
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/secret")
