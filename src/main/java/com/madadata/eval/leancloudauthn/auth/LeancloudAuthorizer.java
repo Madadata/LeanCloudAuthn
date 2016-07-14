@@ -1,24 +1,20 @@
 package com.madadata.eval.leancloudauthn.auth;
 
 import com.madadata.eval.leancloudauthn.api.AppUser;
-import com.madadata.eval.leancloudauthn.config.LeancloudConfig;
+import com.madadata.eval.leancloudauthn.client.LeancloudClient;
 import io.dropwizard.auth.Authorizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.ws.rs.client.Client;
 
 /**
  * Created by jiayu on 7/14/16.
  */
 public class LeancloudAuthorizer implements Authorizer<AppUser> {
 
-    private final Client client;
-    private final LeancloudConfig leancloudConfig;
+    private final LeancloudClient leancloudClient;
 
-    public LeancloudAuthorizer(Client client, LeancloudConfig leancloudConfig) {
-        this.client = client;
-        this.leancloudConfig = leancloudConfig;
+    public LeancloudAuthorizer(LeancloudClient leancloudClient) {
+        this.leancloudClient = leancloudClient;
     }
 
     private static final Logger logger = LoggerFactory.getLogger(LeancloudAuthorizer.class);

@@ -1,7 +1,7 @@
 package com.madadata.eval.leancloudauthn.resource;
 
 import com.madadata.eval.leancloudauthn.api.UserInfo;
-import com.madadata.eval.leancloudauthn.config.LeancloudConfig;
+import com.madadata.eval.leancloudauthn.client.LeancloudClient;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.annotation.security.RolesAllowed;
@@ -9,12 +9,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
-import java.net.URI;
-
-import static java.util.Objects.requireNonNull;
+import java.util.Objects;
 
 /**
  * Created by jiayu on 7/14/16.
@@ -23,12 +19,10 @@ import static java.util.Objects.requireNonNull;
 @Produces(MediaType.APPLICATION_JSON)
 public class LeancloudAuthenticationService {
 
-    private final Client client;
-    private final LeancloudConfig leancloudConfig;
+    private final LeancloudClient leancloudClient;
 
-    public LeancloudAuthenticationService(Client client, LeancloudConfig leancloudConfig) {
-        this.client = requireNonNull(client, "client");
-        this.leancloudConfig = requireNonNull(leancloudConfig, "leancloud config");
+    public LeancloudAuthenticationService(LeancloudClient leancloudClient) {
+        this.leancloudClient = Objects.requireNonNull(leancloudClient);
     }
 
     @RolesAllowed(value = {"Secret:Read"})
@@ -45,30 +39,13 @@ public class LeancloudAuthenticationService {
     @GET
     @Path("/validate/{sessionToken}")
     public UserInfo validateSessionKey(@NotEmpty @PathParam("sessionToken") String sessionToken) {
-        URI uri = UriBuilder.fromUri(leancloudConfig.getBaseUrl())
-                .path("users")
-                .path("me")
-                .build();
-        return client.target(uri)
-                .request()
-                .header("X-LC-Id", leancloudConfig.getAppId())
-                .header("X-LC-Key", leancloudConfig.getAppKey())
-                .header("X-LC-Session", sessionToken)
-                .get(UserInfo.class);
+        return leancloudClient.getUserInfoBySessionToken(sessionToken);
     }
 
     @GET
     @Path("/user/{userId}")
     public UserInfo getUser(@NotEmpty @PathParam("userId") String userId) {
-        URI uri = UriBuilder.fromUri(leancloudConfig.getBaseUrl())
-                .path("users")
-                .path(userId)
-                .build();
-        return client.target(uri)
-                .request()
-                .header("X-LC-Id", leancloudConfig.getAppId())
-                .header("X-LC-Key", leancloudConfig.getAppKey())
-                .get(UserInfo.class);
+        return leancloudClient.getUserInfoById(userId);
     }
 
 }
