@@ -1,7 +1,7 @@
 leancloud:
   appId: ${LC_APP_ID}
   appKey: ${LC_APP_KEY}
-  authUrl: "https://api.leancloud.cn/1.1/users"
+  baseUrl: "https://api.leancloud.cn/1.1"
 
 jerseyClient:
   minThreads: 1

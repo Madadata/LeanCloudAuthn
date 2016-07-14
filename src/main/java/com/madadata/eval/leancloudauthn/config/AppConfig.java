@@ -15,15 +15,17 @@ public class AppConfig extends Configuration {
 
     @Valid
     @NotNull
-    private final LeancloudConfig leancloudConfig;
+    private final LeancloudConfig leancloud;
 
     @Valid
     @NotNull
-    private final JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
+    private final JerseyClientConfiguration jerseyClient;
 
     @JsonCreator
-    public AppConfig(@JsonProperty("leancloudConfig") LeancloudConfig leancloudConfig) {
-        this.leancloudConfig = leancloudConfig;
+    public AppConfig(@JsonProperty("leancloud") LeancloudConfig leancloud,
+                     @JsonProperty("jerseyClient") JerseyClientConfiguration jerseyClient) {
+        this.leancloud = leancloud;
+        this.jerseyClient = jerseyClient;
     }
 
     @JsonProperty("jerseyClient")
@@ -32,7 +34,7 @@ public class AppConfig extends Configuration {
     }
 
     @JsonProperty("leancloudConfig")
-    public LeancloudConfig getLeancloudConfig() {
-        return leancloudConfig;
+    public LeancloudConfig getLeancloud() {
+        return leancloud;
     }
 }

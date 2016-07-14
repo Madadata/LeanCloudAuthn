@@ -10,24 +10,24 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class LeancloudConfig {
 
     @NotEmpty
-    private final String authUrl;
+    private final String baseUrl;
     @NotEmpty
     private final String appId;
     @NotEmpty
     private final String appKey;
 
     @JsonCreator
-    public LeancloudConfig(@JsonProperty("authUrl") String authUrl,
+    public LeancloudConfig(@JsonProperty("authUrl") String baseUrl,
                            @JsonProperty("appId") String appId,
                            @JsonProperty("appKey") String appKey) {
-        this.authUrl = authUrl;
+        this.baseUrl = baseUrl;
         this.appId = appId;
         this.appKey = appKey;
     }
 
     @JsonProperty
-    public String getAuthUrl() {
-        return authUrl;
+    public String getBaseUrl() {
+        return baseUrl;
     }
 
     @JsonProperty
